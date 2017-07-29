@@ -1,1 +1,8 @@
-/* CSS declarations go here */
+.nav-wrapper.green {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.nav-wrapper.green i {
+    font-size: 35px;
+}
