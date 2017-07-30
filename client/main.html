@@ -18,9 +18,15 @@
         <div class="nav-wrapper green">
             <a href="/" class="brand-logo"><i class="material-icons">event_note</i> NoteManager</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+                {{#if currentUser}}
                 <li class="nav-item">
                     <!-- Modal Trigger -->
                     <a class="waves-effect waves-light btn modal-trigger" href="#addModal">Add Note</a>
+                </li>
+                {{/if}}
+                <li class="nav-item">
+                    {{> loginButtons}}
                 </li>
             </ul>
         </div>
@@ -29,9 +35,14 @@
 
     <div class="container">
         <h1>Latest Notes</h1>
+
+        {{#if currentUser}}
         <ul class="collection">
             {{#each notes}} {{> note}} {{/each}}
         </ul>
+        {{else}}
+        <p class="card-panel deep-purple lighten-4">Please log in to manage notes</p>
+        {{/if}}
     </div>
 
     {{> add}}
@@ -47,7 +58,7 @@
 
 <template name="note">
   <li class="collection-item">
-      {{text}}
+      {{text}}: <strong>Added by {{username}}</strong>
       <a href="#" class="delete-note secondary-content">
           <i class="material-icons">close</i>
       </a>

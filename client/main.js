@@ -1,5 +1,12 @@
 import { Template } from 'meteor/templating';
 import { Notes } from '../lib/collections';
+import { Accounts } from 'meteor/accounts-base';
+
+
+// Accounts config
+Accounts.ui.config({
+    passwordSignupFields: 'USERNAME_ONLY'
+});
 
 import './main.html';
 
@@ -17,13 +24,7 @@ Template.add.events({
         const target = event.target;
         const text = target.text.value;
 
-        //console.log(text);
-
-        // Insert Note into collection
-        Notes.insert({
-            text,
-            createdAt: new Date()
-        });
+        Meteor.call('notes.insert', text);
 
         target.text.value = '';
         $('#addModal').modal('close');
@@ -35,7 +36,7 @@ Template.add.events({
 
 Template.note.events({
     'click .delete-note': function() {
-        Notes.remove(this._id);
+        Meteor.call('notes.remove', this);
 
         return false;
     }
